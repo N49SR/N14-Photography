@@ -22,9 +22,10 @@ async function loadPhotos() {
                 /\.(jpg|jpeg|png|webp)$/i.test(file.name)
             )
             .sort((a, b) =>
-                a.name.localeCompare(b.name, undefined, {
-                    numeric: true
-                })
+    b.name.localeCompare(a.name, undefined, {
+        numeric: true
+    })
+);
             );
 
         gallery.innerHTML = "";
