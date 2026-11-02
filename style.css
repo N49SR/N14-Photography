@@ -30,7 +30,12 @@ body {
   color: #111;
   text-decoration: none;
 }
-
+.logo img {
+    width: 75px;
+    height: 65px;
+    object-fit: contain;
+    display: block;
+}
 .logo span {
   font-size: 12px;
   letter-spacing: 4px;
