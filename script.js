@@ -26,7 +26,6 @@ async function loadPhotos() {
         numeric: true
     })
 );
-
         gallery.innerHTML = "";
 
         photos.forEach(photo => {
