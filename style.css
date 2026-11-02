@@ -239,8 +239,8 @@ footer a {
 }
 
 .navbar .logo img {
-    width: 100px !important;
-    height: 100px !important;
+    width: 120px !important;
+    height: 120px !important;
     max-width: 85px !important;
     object-fit: contain;
     display: block;
