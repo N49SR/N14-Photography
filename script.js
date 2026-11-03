@@ -1,4 +1,3 @@
-
 const gallery = document.getElementById("gallery");
 
 async function loadMatches() {
@@ -17,15 +16,37 @@ async function loadMatches() {
 
         const matches = files
             .filter(file => file.type === "dir")
-            .sort((a, b) => a.name.localeCompare(b.name, undefined, {
-                numeric: true
-            }));
+            .sort((a, b) => a.name.localeCompare(
+                b.name, undefined, { numeric: true }
+            ));
 
         gallery.innerHTML = "";
 
         for (const match of matches) {
+            const photoResponse = await fetch(match.url);
+            if (!photoResponse.ok) continue;
+
+            const photoFiles = await photoResponse.json();
+
+            const photos = photoFiles
+                .filter(file =>
+                    file.type === "file" &&
+                    /\.(jpg|jpeg|png|webp)$/i.test(file.name)
+                )
+                .sort((a, b) => a.name.localeCompare(
+                    b.name, undefined, { numeric: true }
+                ));
+
+            if (photos.length === 0) continue;
+
             const card = document.createElement("div");
             card.className = "match-card";
+
+            const cover = document.createElement("img");
+            cover.className = "match-cover";
+            cover.src = photos[0].download_url;
+            cover.alt = match.name;
+            cover.loading = "lazy";
 
             const title = document.createElement("h3");
             title.textContent = match.name.replace(/-/g, " ").toUpperCase();
@@ -37,45 +58,23 @@ async function loadMatches() {
             photosContainer.className = "match-photos";
             photosContainer.hidden = true;
 
-            button.addEventListener("click", async () => {
-                if (photosContainer.hidden) {
-                    if (!photosContainer.dataset.loaded) {
-                        const photoResponse = await fetch(match.url);
-                        const photoFiles = await photoResponse.json();
-
-                        photoFiles
-                            .filter(file =>
-                                file.type === "file" &&
-                                /\.(jpg|jpeg|png|webp)$/i.test(file.name)
-                            )
-                            .sort((a, b) => a.name.localeCompare(
-                                b.name, undefined, { numeric: true }
-                            ))
-                            .forEach(photo => {
-                                const img = document.createElement("img");
-                                img.src = photo.download_url;
-                                img.alt = title.textContent;
-                                img.loading = "lazy";
-                                photosContainer.appendChild(img);
-                            });
-
-                        photosContainer.dataset.loaded = "true";
-                    }
-
-                    photosContainer.hidden = false;
-                    button.textContent = "HIDE PHOTOS";
-                } else {
-                    photosContainer.hidden = true;
-                    button.textContent = "VIEW PHOTOS";
-                }
+            photos.forEach(photo => {
+                const img = document.createElement("img");
+                img.src = photo.download_url;
+                img.alt = match.name;
+                img.loading = "lazy";
+                photosContainer.appendChild(img);
             });
 
-            card.append(title, button, photosContainer);
-            gallery.appendChild(card);
-        }
+            button.addEventListener("click", () => {
+                photosContainer.hidden = !photosContainer.hidden;
+                button.textContent = photosContainer.hidden
+                    ? "VIEW PHOTOS"
+                    : "HIDE PHOTOS";
+            });
 
-        if (matches.length === 0) {
-            gallery.textContent = "No matches available yet.";
+            card.append(cover, title, button, photosContainer);
+            gallery.appendChild(card);
         }
 
     } catch (error) {
