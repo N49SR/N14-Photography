@@ -246,3 +246,89 @@ footer a {
     display: block;
     margin-left: -15px;
 }
+
+/* Photo Lightbox */
+
+.gallery img {
+    cursor: pointer;
+}
+
+#lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background: rgba(0, 0, 0, 0.96);
+    align-items: center;
+    justify-content: center;
+    padding: 70px;
+}
+
+#lightbox.active {
+    display: flex;
+}
+
+.lightbox-image {
+    max-width: 90%;
+    max-height: 85vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+}
+
+#lightbox button {
+    position: absolute;
+    border: none;
+    color: white;
+    background: rgba(255,255,255,0.12);
+    cursor: pointer;
+    padding: 12px 18px;
+    font-size: 22px;
+}
+
+.lightbox-close {
+    top: 20px;
+    right: 25px;
+}
+
+.lightbox-prev {
+    left: 20px;
+    top: 50%;
+}
+
+.lightbox-next {
+    right: 20px;
+    top: 50%;
+}
+
+.lightbox-download {
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 13px !important;
+    letter-spacing: 2px;
+}
+
+#lightbox button:hover {
+    background: white;
+    color: black;
+}
+
+@media (max-width: 700px) {
+    #lightbox {
+        padding: 45px 10px;
+    }
+
+    .lightbox-image {
+        max-width: 95%;
+        max-height: 75vh;
+    }
+
+    .lightbox-prev {
+        left: 5px;
+    }
+
+    .lightbox-next {
+        right: 5px;
+    }
+}
