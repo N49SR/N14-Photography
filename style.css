@@ -118,7 +118,9 @@ nav a {
 }
 
 .gallery-section {
-  padding: 100px 8%;
+    padding: 100px 8%;
+    background: #080808;
+    color: white;
 }
 
 .section-heading {
@@ -129,8 +131,9 @@ nav a {
 }
 
 .section-heading h2 {
-  font-size: 48px;
-  margin-top: 10px;
+    font-size: 48px;
+    margin-top: 10px;
+    color: #999;
 }
 
 .section-heading p {
