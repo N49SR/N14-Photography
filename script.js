@@ -60,7 +60,7 @@ async function loadMatches() {
 
             photos.forEach(photo => {
                 const img = document.createElement("img");
-                img.src = photo.download_url;
+                img.src = "https://raw.githubusercontent.com/N49SR/N14-Photography/main/" + photo.path;
                 img.alt = match.name;
                 img.loading = "lazy";
                 photosContainer.appendChild(img);
