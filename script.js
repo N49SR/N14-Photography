@@ -66,32 +66,93 @@ async function loadMatches() {
                 img.style.cursor = "zoom-in";
 
 img.addEventListener("click", () => {
-    const viewer = document.createElement("div");
+    let currentIndex = photos.indexOf(photo);
 
+    const viewer = document.createElement("div");
     viewer.style.cssText = `
         position: fixed;
         inset: 0;
-        background: rgba(0,0,0,0.95);
+        background: rgba(0,0,0,0.96);
         display: flex;
         align-items: center;
         justify-content: center;
         z-index: 99999;
-        cursor: zoom-out;
         padding: 20px;
     `;
 
     const largeImage = document.createElement("img");
-    largeImage.src = img.src;
-
     largeImage.style.cssText = `
-        max-width: 95%;
-        max-height: 90vh;
+        max-width: 85%;
+        max-height: 85vh;
         object-fit: contain;
     `;
 
-    viewer.appendChild(largeImage);
-    viewer.addEventListener("click", () => viewer.remove());
+    function updateImage() {
+        largeImage.src =
+            "https://raw.githubusercontent.com/N49SR/N14-Photography/main/" +
+            photos[currentIndex].path;
 
+        download.href = largeImage.src;
+        download.download = photos[currentIndex].name;
+    }
+
+    const prev = document.createElement("button");
+    prev.textContent = "❮";
+    const next = document.createElement("button");
+    next.textContent = "❯";
+
+    const close = document.createElement("button");
+    close.textContent = "✕";
+
+    const download = document.createElement("a");
+    download.textContent = "⬇ DOWNLOAD";
+    download.style.cssText = `
+        color: white;
+        background: #e00000;
+        padding: 12px 20px;
+        text-decoration: none;
+        position: absolute;
+        bottom: 25px;
+    `;
+
+    [prev, next, close].forEach(button => {
+        button.style.cssText = `
+            position: absolute;
+            background: #222;
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 22px;
+            cursor: pointer;
+        `;
+    });
+
+    prev.style.left = "20px";
+    next.style.right = "20px";
+    close.style.right = "20px";
+    close.style.top = "20px";
+
+    prev.onclick = () => {
+        currentIndex = (currentIndex - 1 + photos.length) % photos.length;
+        updateImage();
+    };
+
+    next.onclick = () => {
+        currentIndex = (currentIndex + 1) % photos.length;
+        updateImage();
+    };
+
+    close.onclick = () => viewer.remove();
+
+    viewer.append(
+        largeImage, prev, next, close, download
+    );
+
+    viewer.onclick = event => {
+        if (event.target === viewer) viewer.remove();
+    };
+
+    updateImage();
     document.body.appendChild(viewer);
 });
                 photosContainer.appendChild(img);
