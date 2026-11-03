@@ -332,3 +332,50 @@ footer a {
         right: 5px;
     }
 }
+.match-card {
+    margin-bottom: 35px;
+}
+
+.match-cover {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    display: block;
+}
+
+.match-card h3 {
+    margin: 15px 0 8px;
+    font-size: 20px;
+}
+
+.match-card button {
+    background: #111;
+    color: white;
+    border: none;
+    padding: 12px 22px;
+    cursor: pointer;
+    letter-spacing: 1px;
+}
+
+.match-photos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.match-photos img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+@media (max-width: 700px) {
+    .match-photos {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .match-cover {
+        height: 220px;
+    }
+}
