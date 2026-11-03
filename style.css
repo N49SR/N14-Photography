@@ -414,3 +414,6 @@ footer a {
         height: 220px;
     }
 }
+.match-photos[hidden] {
+    display: none !important;
+}
