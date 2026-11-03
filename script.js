@@ -44,7 +44,7 @@ async function loadMatches() {
 
             const cover = document.createElement("img");
             cover.className = "match-cover";
-            cover.src = photos[0].download_url;
+            cover.src = "https://raw.githubusercontent.com/N49SR/N14-Photography/main/" + photos[0].path;
             cover.alt = match.name;
             cover.loading = "lazy";
 
