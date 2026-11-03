@@ -143,20 +143,22 @@ nav a {
 .gallery {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+    gap: 20px;
     align-items: start;
 }
 
 .gallery img {
     width: 100%;
-    height: auto;
-    object-fit: contain;
+    height: 320px;
+    object-fit: cover;
     display: block;
-    transition: 0.3s;
+    border: 1px solid #292929;
+    transition: 0.4s ease;
 }
 
 .gallery img:hover {
-    transform: none;
+    transform: scale(1.02);
+    filter: brightness(1.1);
 }
 
 .about {
