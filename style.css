@@ -387,8 +387,9 @@ color: black;
 }
 
 .match-card button:hover {
-    background: white;
-    color: black;
+    background: #222;
+    color: white;
+    border: 1px solid white;
 }
 
 .match-photos {
