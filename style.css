@@ -375,8 +375,8 @@ footer a {
 }
 
 .match-card button {
-    background: #00ff2a;
-    color: white;
+    background: white;
+color: black;
     border: none;
     padding: 12px 22px;
     margin-left: 16px;
