@@ -63,6 +63,37 @@ async function loadMatches() {
                 img.src = "https://raw.githubusercontent.com/N49SR/N14-Photography/main/" + photo.path;
                 img.alt = match.name;
                 img.loading = "lazy";
+                img.style.cursor = "zoom-in";
+
+img.addEventListener("click", () => {
+    const viewer = document.createElement("div");
+
+    viewer.style.cssText = `
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.95);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 99999;
+        cursor: zoom-out;
+        padding: 20px;
+    `;
+
+    const largeImage = document.createElement("img");
+    largeImage.src = img.src;
+
+    largeImage.style.cssText = `
+        max-width: 95%;
+        max-height: 90vh;
+        object-fit: contain;
+    `;
+
+    viewer.appendChild(largeImage);
+    viewer.addEventListener("click", () => viewer.remove());
+
+    document.body.appendChild(viewer);
+});
                 photosContainer.appendChild(img);
             });
 
