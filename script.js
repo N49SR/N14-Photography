@@ -18,9 +18,10 @@ async function loadPhotos() {
 
         const photos = files
             .filter(file =>
-                file.type === "file" &&
-                /\.(jpg|jpeg|png|webp)$/i.test(file.name)
-            )
+    file.type === "file" &&
+    /\.(jpg|jpeg|png|webp)$/i.test(file.name) &&
+    !/(logo|favicon)/i.test(file.name)
+)
             .sort((a, b) =>
     b.name.localeCompare(a.name, undefined, {
         numeric: true
